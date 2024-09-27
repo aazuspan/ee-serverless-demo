@@ -1,0 +1,4 @@
+pulumi==3.*
+pulumi-gcp==8.*
+
+-r function/requirements.txt
