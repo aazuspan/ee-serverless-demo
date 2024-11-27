@@ -43,7 +43,7 @@ gcp.storage.BucketIAMBinding(
 function_object = gcp.storage.BucketObject(
     "ee-function-source",
     bucket=bucket.name,
-    source=pulumi.FileArchive("./function"),
+    source=pulumi.FileArchive("./src"),
 )
 
 # Create the cloud function
@@ -54,12 +54,12 @@ function = gcp.cloudfunctionsv2.Function(
     build_config={
         "runtime": "python311",
         "entry_point": "main",
-        "source": {
-            "storage_source": {
-                "bucket": function_object.bucket,
-                "object": function_object.name,
-            },
-        },
+        # https://www.pulumi.com/ai/answers/fBt3b8gnf7LpsucsYQFVpY/constructing-gcp-cloud-functions-in-python
+        "source": gcp.cloudfunctionsv2.FunctionBuildConfigSourceArgs(
+            storage_source=gcp.cloudfunctionsv2.FunctionBuildConfigSourceStorageSourceArgs(
+                bucket=pulumi.FileArchive("./function"),
+            )
+        )
     },
     service_config={
         "max_instance_count": 1,

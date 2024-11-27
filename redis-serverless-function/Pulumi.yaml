@@ -1,0 +1,6 @@
+name: redis-serverless-function
+description: Deploy a demo Earth Engine Cloud Run service that connects to a Redis instance
+runtime:
+  name: python
+  options:
+    toolchain: uv

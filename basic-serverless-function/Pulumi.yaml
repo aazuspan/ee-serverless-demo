@@ -1,0 +1,6 @@
+name: basic-serverless-demo
+description: A minimal Google Cloud Python Pulumi program
+runtime:
+  name: python
+  options:
+    toolchain: uv
